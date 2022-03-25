@@ -168,3 +168,103 @@ export interface ListenOptions {
   }
 
 ```
+
+## 声明周期  这块与react 非常像
+* connectedCallback()
+* disconnectedCallback()
+* componentWillLoad()
+* componentDidLoad()
+* componentShouldUpdate(newValue, oldValue, propName): boolean
+* componentWillRender()
+* componentDidRender()
+* componentWillUpdate()
+* componentDidUpdate()
+* render()
+
+这样看每个生命周期的回调的作用时间点或者作用场景是很不直观的，我们抽象下以四个维度来划分下我们日常使用组件的场景：组件初次加载、组件重新连接、组件更新、组件移除。
+
+![Image text](./public/hook.png)
+
+
+### 首次加载
+初始化 --> connectedCallback --> componentWillLoad  --> componentWillRender --> render --> componentDidRender --> componentDidLoad
+![Image text](./public/mount.png)
+
+### 组件重新连接
+组件重新连接是当把一个 tag 标签渲染后，执行 remove 操作后，重新 append 这个 tag 标签的时候触发。
+connectedCallback
+所以可以发现，只有 onnectedCallback() 会在两种情形下同时调用，所以一些需要在组件显示的时候执行的逻辑都需要放在 onnectedCallback() 里面。
+
+### 组件更新
+当组件初始化完成后我们改变 props 或者 state 定义的变量的时候，会触发组件的检测流程，通过componentShouldUpdate() 来判断新老值是否有变更，从而决定当前组件是否需要更新。
+![Image text](./public/update.png)
+
+### 组件移除
+组件移除的逻辑还是比较直接，调用 disconnectedCallback()
+
+### 多层嵌套组件的生命周期顺序
+这个与react一样
+
+### 一些关于声明周期的一些建议
+与 React 有点不一样
+* 推荐在 componentWillRender() 生命周期中添加一些副作用的函数，因为它执行在 render 之前，会把一些副作用收集并减少一些重复渲染。同一个道理，我们不推荐在 componentDidLoad(), componentDidUpdate() 或者 componentDidRender() 中执行一些副作用，因为它还会造成一些重复渲染导致一些性能问题。
+* 尽量在 disconnectedCallback 中移除组件中用到的所有监听函数，和定时器相关。
+* 尽量减少组件非必要更新的频率，利用好缓存，或者功能性组件，可以提升性能。
+
+#### Ref
+可以让我们很方便的获取这个 HTMLElement 实例的属性
+```jsx
+ <div ref={(element) => (this.ele = element)}></div>
+```
+
+#### Slot
+Slot 插槽大家也不陌生，在 Vue 或者 React 都有一样的概念，它可以把元素包裹的 html 片段映射到 JSX 指定 slot 的地方。并且还可以加以 name 作为 attr 区分
+```jsx
+render(){
+  return(
+    <my-component>
+      <p slot="item-start">I'll be placed before the h1</p>
+      <p slot="item-end">I'll be placed after the h1</p>
+    </my-component>
+  )
+}
+
+render(){
+  return [
+    <slot name="item-start" />,
+    <h1>Here is my main content</h1>,
+    <slot name="item-end" />
+  ]
+}
+```
+
+#### Fragment 呈现组件
+Fragment 可以用来声明一个无状态组件，意思就是组件内部没有状态，只会通过传值来改变内部渲染的内容。也是组件库中的常用方式之一。
+```jsx
+render() {
+  return (<Fragment>
+    // first top level element
+    <div class="container">
+      <ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+      </ul>
+    </div>
+
+    <div class="another-container">
+      ... more html content ...
+    </div>
+  </Fragment>);
+}
+```
+
+#### Host
+Render 函数内部 jsx 代码片段可以用 Host 标签包裹，添加到 Host 的标签的属性会被映射到当前组件的最外层 tag 上。
+```jsx
+return (
+      <Host class="host-point">
+        <button class="sten-button"><slot></slot></button>
+      </Host>
+    )
+```
