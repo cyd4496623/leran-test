@@ -6,5 +6,11 @@
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "scripts": {
+    "commit": "git cz",
+    "release": "standard-version",
+    "start:components": "lerna run start --scope=@sten-design/components",
+    "generate:components": "lerna run generate --scope=@sten-design/components"
+  }
 }
