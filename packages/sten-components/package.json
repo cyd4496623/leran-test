@@ -28,7 +28,8 @@
   "dependencies": {
     "@sten-design/icons": "^1.0.1",
     "@sten-design/themes": "^1.0.1",
-    "@stencil/core": "^2.13.0"
+    "@stencil/core": "^2.13.0",
+    "@stencil/sass": "^1.5.2"
   },
   "devDependencies": {
     "@types/jest": "^27.0.3",

@@ -13,6 +13,7 @@ importers:
       '@sten-design/icons': ^1.0.1
       '@sten-design/themes': ^1.0.1
       '@stencil/core': ^2.13.0
+      '@stencil/sass': ^1.5.2
       '@types/jest': ^27.0.3
       jest: ^27.4.5
       jest-cli: ^27.4.5
@@ -21,6 +22,7 @@ importers:
       '@sten-design/icons': link:../sten-icons
       '@sten-design/themes': link:../sten-themes
       '@stencil/core': 2.14.2
+      '@stencil/sass': 1.5.2_@stencil+core@2.14.2
     devDependencies:
       '@types/jest': 27.4.1
       jest: 27.5.1
@@ -1493,6 +1495,14 @@ packages:
     resolution: {integrity: sha512-NMC5Xi8sPFJxaO4rz6CbMHuD6PteE/RJWtjrbkusmpjKRtMXkfZJPIgOrleZ4xO+vXcNyL535Ru7vUADqEsTiQ==}
     engines: {node: '>=12.10.0', npm: '>=6.0.0'}
     hasBin: true
+    dev: false
+
+  /@stencil/sass/1.5.2_@stencil+core@2.14.2:
+    resolution: {integrity: sha512-nJ93pUSylsGsMX0eLmhxh1oEljcUjj5mYjhB9ziCdoaydAdjukrUoqDCC7tdVbOcBo2hKptQyWqCtETnBGYsXQ==}
+    peerDependencies:
+      '@stencil/core': '>=1.0.2'
+    dependencies:
+      '@stencil/core': 2.14.2
     dev: false
 
   /@tootallnate/once/1.1.2:

@@ -1,0 +1,48 @@
+:host {
+  display: block;
+}
+
+.sten-alert {
+  padding: 20px;
+  border: 1px solid;
+  border-radius: 4px;
+  color: #fff;
+  display: flex;
+  &-hidden {
+    display: none;
+  }
+
+  &-default {
+    background: #74748c;
+  }
+  &-brand {
+    background: #2c3e50;
+  }
+  &-info {
+    background: #4267ff;
+  }
+  &-warning {
+    background: orange;
+  }
+
+  &-success {
+    background: #088a05;
+  }
+  &-error {
+    background: #ee0202;
+  }
+  &-content {
+    flex: 1;
+  }
+  .c-button--close {
+    background-color: transparent;
+    border: 1px solid transparent;
+    color: inherit;
+    font-size: 1.4em;
+    font-weight: bold;
+    line-height: 1;
+    outline: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+}

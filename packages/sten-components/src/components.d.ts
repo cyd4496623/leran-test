@@ -5,6 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { IOption } from "./components/sten-autocomplete/type";
 export namespace Components {
     interface MyComponent {
         /**
@@ -20,7 +21,29 @@ export namespace Components {
          */
         "middle": string;
     }
+    interface StenAlert {
+        /**
+          * 点击关闭
+         */
+        "close": () => Promise<void>;
+        /**
+          * 是否展示关闭按钮， 默认关闭
+         */
+        "dismissible": boolean;
+        /**
+          * 类型
+         */
+        "type": 'default' | 'brand' | 'info' | 'warning' | 'success' | 'error';
+    }
+    interface StenAutocomplete {
+        "close": () => Promise<void>;
+        "open": () => Promise<void>;
+        "options": IOption[];
+        "placeholder": string;
+    }
     interface StenButton {
+    }
+    interface StenModal {
     }
 }
 declare global {
@@ -30,15 +53,36 @@ declare global {
         prototype: HTMLMyComponentElement;
         new (): HTMLMyComponentElement;
     };
+    interface HTMLStenAlertElement extends Components.StenAlert, HTMLStencilElement {
+    }
+    var HTMLStenAlertElement: {
+        prototype: HTMLStenAlertElement;
+        new (): HTMLStenAlertElement;
+    };
+    interface HTMLStenAutocompleteElement extends Components.StenAutocomplete, HTMLStencilElement {
+    }
+    var HTMLStenAutocompleteElement: {
+        prototype: HTMLStenAutocompleteElement;
+        new (): HTMLStenAutocompleteElement;
+    };
     interface HTMLStenButtonElement extends Components.StenButton, HTMLStencilElement {
     }
     var HTMLStenButtonElement: {
         prototype: HTMLStenButtonElement;
         new (): HTMLStenButtonElement;
     };
+    interface HTMLStenModalElement extends Components.StenModal, HTMLStencilElement {
+    }
+    var HTMLStenModalElement: {
+        prototype: HTMLStenModalElement;
+        new (): HTMLStenModalElement;
+    };
     interface HTMLElementTagNameMap {
         "my-component": HTMLMyComponentElement;
+        "sten-alert": HTMLStenAlertElement;
+        "sten-autocomplete": HTMLStenAutocompleteElement;
         "sten-button": HTMLStenButtonElement;
+        "sten-modal": HTMLStenModalElement;
     }
 }
 declare namespace LocalJSX {
@@ -56,11 +100,35 @@ declare namespace LocalJSX {
          */
         "middle"?: string;
     }
+    interface StenAlert {
+        /**
+          * 是否展示关闭按钮， 默认关闭
+         */
+        "dismissible"?: boolean;
+        /**
+          * 暴露给外部的回调
+         */
+        "onClose"?: (event: CustomEvent<any>) => void;
+        /**
+          * 类型
+         */
+        "type"?: 'default' | 'brand' | 'info' | 'warning' | 'success' | 'error';
+    }
+    interface StenAutocomplete {
+        "onFilter"?: (event: CustomEvent<any>) => void;
+        "options"?: IOption[];
+        "placeholder"?: string;
+    }
     interface StenButton {
+    }
+    interface StenModal {
     }
     interface IntrinsicElements {
         "my-component": MyComponent;
+        "sten-alert": StenAlert;
+        "sten-autocomplete": StenAutocomplete;
         "sten-button": StenButton;
+        "sten-modal": StenModal;
     }
 }
 export { LocalJSX as JSX };
@@ -68,7 +136,10 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "sten-alert": LocalJSX.StenAlert & JSXBase.HTMLAttributes<HTMLStenAlertElement>;
+            "sten-autocomplete": LocalJSX.StenAutocomplete & JSXBase.HTMLAttributes<HTMLStenAutocompleteElement>;
             "sten-button": LocalJSX.StenButton & JSXBase.HTMLAttributes<HTMLStenButtonElement>;
+            "sten-modal": LocalJSX.StenModal & JSXBase.HTMLAttributes<HTMLStenModalElement>;
         }
     }
 }

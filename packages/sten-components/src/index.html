@@ -13,6 +13,21 @@
 <body>
   <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>
   <sten-button>你好</sten-button>
+  <sten-alert id="cyd">default</sten-alert>
+  <!-- <sten-alert type='success' onClose="handleClose()">success</sten-alert>
+  <sten-alert type="warning" onClose="handleClose()">warning</sten-alert>
+  <sten-alert type='brand' onClose="handleClose()">brand</sten-alert>
+  <sten-alert type='info' onClose="handleClose()">info</sten-alert>
+  <sten-alert type='error' onClose="handleClose()">error</sten-alert> -->
+  <button onclick="test">点击</button>
+  <sten-autocomplete placeholder="测试~" />
+
+  <script>
+    const alertDom = document.getElementById('cyd')
+    alertDom.addEventListener('close', (e) => {
+      console.log(e.detail)
+    })
+  </script>
 </body>
 
 </html>

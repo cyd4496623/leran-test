@@ -1,7 +1,10 @@
 import { Config } from '@stencil/core';
-
+import { sass } from '@stencil/sass'
 export const config: Config = {
   namespace: 'sten-components',
+  plugins: [
+    sass()
+  ],
   outputTargets: [
     {
       type: 'dist',

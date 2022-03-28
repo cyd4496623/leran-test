@@ -1,0 +1,18 @@
+:host {
+  display: block;
+}
+
+.sten-autocomplete {
+  position: relative;
+  input {
+    width: 100%;
+  }
+  &-menu {
+    height: 300px;
+    position: absolute;
+    bottom: -305px;
+    width: 100%;
+    background: #fff;
+    border: 1px solid black;
+  }
+}
